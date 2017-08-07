@@ -1,0 +1,19 @@
+{
+  "name": "trellisrxapi",
+  "version": "1.0.0",
+  "description": "Full stack implementation (exercise)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shihanxiong/TrellisRxAPI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shihanxiong/TrellisRxAPI/issues"
+  },
+  "homepage": "https://github.com/shihanxiong/TrellisRxAPI#readme"
+}
