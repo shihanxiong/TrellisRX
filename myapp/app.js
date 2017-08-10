@@ -6,15 +6,19 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 // Connect to mongodb
-var MongoClient = require('mongodb').MongoClient;
+var mongodb = require('mongodb').MongoClient;
 
 var uri = "mongodb://pointbit:chickenandrice@pbcluster01-shard-00-00-lviwo.mongodb.net:27017,pbcluster01-shard-00-01-lviwo.mongodb.net:27017,pbcluster01-shard-00-02-lviwo.mongodb.net:27017/TrellisRx?ssl=true&replicaSet=PBCluster01-shard-0&authSource=admin";
-MongoClient.connect(uri, function(err, db) {
-  db.close();
+mongodb.connect(uri, function(err, db) {
+  if (err) {
+    console.log('Unable to connect to the database server.');
+    db.close();
+  } else {
+    console.log('Successfully connected to the database server.');
+  }
 });
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var patients = require('./routes/patients');
 
 var app = express();
@@ -32,7 +36,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/patients', patients);
 
 // catch 404 and forward to error handler
