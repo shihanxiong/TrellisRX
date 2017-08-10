@@ -5,6 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Connect to mongodb
+var MongoClient = require('mongodb').MongoClient;
+
+var uri = "mongodb://pointbit:chickenandrice@pbcluster01-shard-00-00-lviwo.mongodb.net:27017,pbcluster01-shard-00-01-lviwo.mongodb.net:27017,pbcluster01-shard-00-02-lviwo.mongodb.net:27017/TrellisRx?ssl=true&replicaSet=PBCluster01-shard-0&authSource=admin";
+MongoClient.connect(uri, function(err, db) {
+  db.close();
+});
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var patients = require('./routes/patients');
