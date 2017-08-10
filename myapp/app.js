@@ -15,6 +15,7 @@ mongodb.connect(uri, function(err, db) {
     db.close();
   } else {
     console.log('Successfully connected to the database server.');
+    db.close();
   }
 });
 
