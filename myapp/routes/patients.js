@@ -53,7 +53,11 @@ router.get('/:id/vitals', function (req, res) {
         if (err) {
           res.send('Error occured while finding patients.');
         } else if (result.length) {
-          res.send(result[0].Medications);
+          var json = {
+            "temperature": result[0].temperature,
+            "pulse": result[0].pulse
+          }
+          res.send(json);
         } else {
           console.log(err);
           res.send('No patients found.');
