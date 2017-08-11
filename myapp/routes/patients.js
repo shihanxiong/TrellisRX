@@ -34,6 +34,37 @@ router.get('/showall', function (req, res) {
   });
 });
 
+// Find the given patient's medications
+router.get('/:id/meds', function (req, res) {
+  mongoClient.connect(uri, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the database server.', err);
+      db.close();
+    } else {
+      console.log('Connection established...');
+
+      var collection = db.collection('Patients');
+
+      // Assign the query ID as an object ID
+      var o_id = new mongodb.ObjectID(req.params.id);
+      collection.find({
+        "_id": o_id
+      }).toArray(function (err, result) {
+        if (err) {
+          res.send('Error occured while finding patients.');
+        } else if (result.length) {
+          //res.send(result);
+          res.send(result[0].Medications);
+        } else {
+          console.log(err);
+          res.send('No patients found.');
+        }
+      });
+      db.close();
+    }
+  });
+});
+
 // Add all patients
 router.get('/addallpatients', function (req, res) {
   mongoClient.connect(uri, function (err, db) {
