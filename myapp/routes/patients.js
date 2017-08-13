@@ -98,6 +98,54 @@ router.get('/:id/meds', function (req, res) {
   });
 });
 
+// Update a patient's vitals
+router.post('/updatevitals', function(req, res){
+  mongoClient.connect(uri, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the database server.', err);
+      db.close();
+    } else {
+      console.log('Connection established...');
+
+      var collection = db.collection('Patients');
+
+      // Parse request body
+      console.log("request id = " + req.body.id);
+      console.log("request temperature = " + req.body.temperature);
+      console.log("request pulse = " + req.body.pulse);
+
+      // Assign the query ID as an object ID
+      var o_id = new mongodb.ObjectID(req.body.id);
+      collection.update({"_id": o_id}, {$set: {"pulse": req.body.pulse, "temperature": req.body.temperature}}).then(function(db){
+        res.send('Record updated successfully');
+      }).catch(function(err){
+        console.log(err);
+        res.send('Record update failed');
+      });
+
+      // collection.find({
+      //   "_id": o_id
+      // }).toArray(function (err, result) {
+      //   if (err) {
+      //     res.send('Error occured while finding patients.');
+      //   } else if (result.length) {
+      //     collection.update({"_id": o_id}, {$set: {"pulse": req.body.pulse, "temperature": req.body.temperature}}).then(function(db){
+      //       console.log(db);
+      //     }).catch(function(err){
+      //       console.log(err);
+      //     });
+      //     res.send('Record updated successfully');
+      //   } else {
+      //     console.log(err);
+      //     res.send('No patients found.');
+      //   }
+      // });
+      
+      db.close();
+    }
+  });
+});
+
 // Add all patients
 router.get('/addallpatients', function (req, res) {
   mongoClient.connect(uri, function (err, db) {
