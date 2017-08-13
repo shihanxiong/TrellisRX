@@ -122,24 +122,6 @@ router.post('/updatevitals', function(req, res){
         console.log(err);
         res.send('Record update failed');
       });
-
-      // collection.find({
-      //   "_id": o_id
-      // }).toArray(function (err, result) {
-      //   if (err) {
-      //     res.send('Error occured while finding patients.');
-      //   } else if (result.length) {
-      //     collection.update({"_id": o_id}, {$set: {"pulse": req.body.pulse, "temperature": req.body.temperature}}).then(function(db){
-      //       console.log(db);
-      //     }).catch(function(err){
-      //       console.log(err);
-      //     });
-      //     res.send('Record updated successfully');
-      //   } else {
-      //     console.log(err);
-      //     res.send('No patients found.');
-      //   }
-      // });
       
       db.close();
     }
